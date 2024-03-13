@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bảng số</title>
+  </head>
+  <body>
+    <!-- Viết chương trình nhập vảo một số nguyên dương n (ns100). 
+    Hãy in ra bảng số có n dòng, mỗi dòng in n số nguyên liên tiếp, dòng thứ i bắt đầu từ số i. -->
+    <h2>Nhập số nguyên dương n:</h2>
+    <input
+      type="number"
+      id="soNguyenDuong"
+      placeholder="Nhập số nguyên dương"
+    />
+    <button onclick="inBangSo()">In Bảng Số</button>
+  
+    <div id="bang"></div>
+
+    <script>
+      function inBangSo() {
+        let soNguyenDuong = parseInt(
+          document.getElementById("soNguyenDuong").value
+        );
+
+        let tableHTML = "<table border='1'>";
+        for (var i = 1; i <= soNguyenDuong; i++) {
+          tableHTML += "<tr>";
+          for (var j = i; j < i + soNguyenDuong; j++) {
+            tableHTML += "<td>" + j + "</td>";
+          }
+          tableHTML += "</tr>";
+        }
+        tableHTML += "</table>";
+
+        document.getElementById("bang").innerHTML = tableHTML;
+      }
+    </script>
+  </body>
+</html>

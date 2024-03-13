@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Viết chương trình in ra một bảng có số dặng và số cột nhập từ browser (kết hợp DOM) -->
+    <h2>Nhập số dòng và số cột:</h2>
+    <p>Điền số dòng và số cột, sau đó nhấn vào nút để tạo bảng:</p>
+
+    <input type="number" id="soDong" placeholder="Nhập số dòng" />
+    <input type="number" id="soCot" placeholder="Nhập số cột" />
+    <button onclick="taoBang()">Tạo Bảng</button>
+
+    <div id="bang"></div>
+
+    <script>
+      function taoBang() {
+        let soDong = parseInt(document.getElementById("soDong").value);
+        let soCot = parseInt(document.getElementById("soCot").value);
+
+        var tableHTML = "<table border='1'>";
+        for (let i = 0; i < soDong; i++) {
+          tableHTML += "<tr>";
+          for (let j = 0; j < soCot; j++) {
+            tableHTML += "<td>Dòng " + (i + 1) + ", Cột " + (j + 1) + "</td>";
+          }
+          tableHTML += "</tr>";
+        }
+        tableHTML += "</table>";
+
+        document.getElementById("bang").innerHTML = tableHTML;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--
+        localstorage
+        cho phép lưu trữ dữ liệu cục bộ trong trình duyệt wed
+        -dữ liệu lưu sẽ ko bị mất đi
+        -dung lượng tầm 5MB
+        1MB=1024KB
+        -lưu dữ liệu dưới dạng key và value
+        -cho phép lưu dữ liệu dạng Json(Là một định dạng dữ liệu )
+        tức là khi lưu dữ liệu (array và object) thì phải chuyển sang định dạng JSON
+        JSON.stringify
+        -còn khi lấy về vẫn là định dạng JSON nên là mình phải Parse ra dạng array object
+        bình thường để dùng
+        các cú pháp hay dùng
+        lưu:set
+        lấy về :get
+        localstorage.setItem("tên key",giá trị);
+        lấy về: get
+        localstorage.getItem("tên key");
+        xóa 1 key:
+        localStorage.removeItem("tên key")
+        xóa hết key:
+        localStorage.clear()
+    -->
+    <script>
+      let students = [
+        {
+          name: "hoa",
+          id: 1,
+        },
+        {
+          name: "hồng",
+          id: 2,
+        },
+      ];
+      localStorage.setItem("students", JSON.stringify(students));
+      console.log(JSON.parse(localStorage.getItem("students")));
+    </script>
+  </body>
+</html>

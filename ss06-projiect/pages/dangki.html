@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Đăng Ký</title>
+    <link rel="stylesheet" href="../style/login.css" />
+  </head>
+  <body>
+    <!-- trang đăng kí -->
+    <div class="container">
+      <h2>Đăng Ký</h2>
+      <form id="registrationForm" action="#" method="post">
+        <label for="fullname">Họ và Tên:</label>
+        <input type="text" id="fullname" name="fullname" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password" required />
+
+        <p>
+          Bạn đã có tài khoản đăng nhập
+          <a href="./dangnhap.html">Nhấp vào đây</a>
+        </p>
+
+        <input type="submit" value="Đăng Ký" />
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+
+          var fullname = document.getElementById("fullname").value;
+          var email = document.getElementById("email").value;
+          var password = document.getElementById("password").value;
+
+
+          var userData = {
+            fullname: fullname,
+            email: email,
+            password: password,
+          };
+
+
+          localStorage.setItem("userData", JSON.stringify(userData));
+
+
+          window.location.href = "./dangki.html";
+        });
+    </script>
+  </body>
+</html>

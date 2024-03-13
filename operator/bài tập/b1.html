@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Viết chương trình nhập vào một câu bất kì ,in ra câu đảo ngược của nó .Ví dụ:"Hello wrold"==>"dlrow olleH" -->
+    <script>
+      function daoNguocChuoi(c) {
+        return c.split("").reverse().join("");
+      }
+
+      let chuoi;
+      do {
+        chuoi = prompt("Nhập vào một câu: ");
+      } while (!chuoi); 
+
+      let chuoiDaoNguoc = daoNguocChuoi(chuoi);
+      console.log("Câu đảo ngược là: " + chuoiDaoNguoc);
+    </script>
+  </body>
+</html>

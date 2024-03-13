@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<style>
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        object-fit: cover;
+    }
+    li{
+        list-style: none;
+    }
+    #outLine{
+        background-color: rgb(58, 66, 63);
+        height: 500px;
+        margin-top: 60px;
+        width: 900px;
+        margin-left: 200px;
+        text-align: center;
+    }
+    #imgMain{
+        height: 350px;
+        padding-top: 40px;
+    }
+    #changeimg{
+        display: flex;
+        flex-direction: row;
+        padding-top: 25px;
+        justify-content: space-evenly;
+        align-items: end;
+        
+    }
+    #arrawleft{
+        color: white;
+        font-size: 40px;
+        cursor: pointer !important;
+        background-color: rgb(58, 66, 63);
+        border: 0;
+    }
+    #arrawleft:active{
+        color: grey;
+    }
+    #arrowright{
+        color: white;
+        font-size: 40px;
+        cursor: pointer !important;
+        background-color: rgb(76, 83, 80);
+        border: 0;
+    }
+    #arrowright:active{
+        color: grey;
+    }
+    #imglist{
+        padding-top:20px;
+        display: flex;
+        gap: 10px;
+    }
+    #imglist img{
+        height: 60px;
+        opacity: 0.5;
+    }
+
+</style>
+</head>
+<body>
+    <div id="outLine">
+        <div>
+            <img id="imgMain" src="https://vuanem.com/blog/wp-content/uploads/2022/11/quan-sat-thuy-trieu.jpg" alt="">
+        </div>
+        <div id="changeimg">
+            <button id="arrawleft" onclick="preImage()"><ion-icon name="chevron-back-outline"></ion-icon></button>
+
+            <ul id="imglist">
+            </ul>
+
+            <button id="arrowright" onclick="nextImage()"><ion-icon name="chevron-forward-outline"></ion-icon></button>
+        </div>
+    </div>
+
+    <script>
+        let images=["https://vuanem.com/blog/wp-content/uploads/2022/11/quan-sat-thuy-trieu.jpg","https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/hinh-nen-thien-nhien-3d-001.jpg",
+        "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/anh-phong-canh-dep-24.jpg","https://img.thuthuatphanmem.vn/uploads/2018/10/09/anh-dep-nhat-the-gioi-ve-thien-nhien_041753462.jpg",
+        "https://cdn.sforum.vn/sforum/wp-content/uploads/2022/07/26-2.jpg","https://leplateau.edu.vn/wp-content/uploads/2023/10/hinh-anh-thien-nhien-dep.jpg"]
+    function renderImage(){
+        let imgs = document.getElementById("imglist");
+        let text = "";
+        for(let i = 0;i< images.length;i++){
+            text+=
+            `<li> <img src="${images[i]}" alt=""></li>
+            `
+        }
+        imgs.innerHTML=
+        `${text}
+        `
+    }
+    renderImage()
+    function nextImage(){
+        let result = images.shift()
+        images.push(result);
+        document.getElementById("imgMain").src = images[3];
+        renderImage()
+    }
+    function preImage(){
+        let result = images.pop()
+        images.unshift(result);
+        document.getElementById("imgMain").src = images[3];
+        renderImage()
+    }
+    
+    </script>
+</body>
+</html>

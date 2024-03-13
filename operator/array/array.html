@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      Array : mảng thuộc kiểu dữ liệu phức tạp (tham chiếu - refenrence)
+      I.Cách khai báo
+      Q/A: có bao nhiêu cách khai báo (khởi tạo 1 mảng);
+      1.let arr=[];
+      2.let student =new Array();
+      các phần tử trong mảng ngăn cách nhau bằng ";"
+      mảng có thể chứa nhiều kiểu dữ liệu khác nhau
+      mảng đánh chỉ mục index từ 0
+      kiểm tra độ dài của mảng : tên mảng .length
+      các cách duyệt mảng
+      1.dùng for
+      2.for-in:trả về chỉ mục
+      3.for-of:trả về giá trị
+      *********
+      CRUD với mảng
+      1.C:Create
+      +unshift: thêm vào đầu
+      +push: thêm vào cuối
+      +splice thêm vào vị trí bất kì
+      2.R:Read
+      -dùng for,for-in,for-of
+      3.U:Update
+      -dùng splice
+      -update theo vị trí
+      4.D:Delete
+      -pop():xóa phần tử cuối cùng trong mảng
+      -shift():xóa phần tử đầu
+      -dùng splice
+      các phương thức làm việc với mảng:
+      1. concat()
+        concat() dùng để nối 2 hay nhiều mảng với nhau
+        concat() KHÔNG làm thay đổi mảng ban đầu
+        concat() trả về 1 mảng mới sau khi nối
+      2. filter()
+        filter() dùng để lọc ra các phần tử trong mảng thoả mãn một điều kiện nào đó
+        filter() KHÔNG làm thay đổi mảng ban đầu
+        filter() trả về 1 mảng mới sau khi lọc
+        filter() trả về một mảng RỖNG nếu không có phần tử nào thỏa mãn điều kiện
+      3. find()
+        find() cũng dùng để lọc phần tử trong mảng, tuy nhiên nó sẽ trả về giá trị ĐẦU TIÊN tìm thấy ở
+        trong mảng hoặc có thể trả về undefined nếu không tìm thấy
+        find() KHÔNG làm thay đổi mảng ban đầu
+      4. forEach()
+        forEach() dùng để duyệt qua từng phần tử của mảng
+        forEach() trả về undefined
+      5. includes()
+        Đây là method mới trong ES6
+        includes() kiểm tra xem phần tử đã cho có tồn tại trong mảng hay không
+        includes() KHÔNG làm thay đổi mảng ban đầu
+        includes() trả về kiểu Boolean: true nếu tìm thấy hoặc false nếu không tìm thấy
+      6. indexOf()
+        indexOf() dùng để tìm kiếm vị trí của phần tử trong mảng
+        indexOf() KHÔNG làm thay đổi mảng ban đầu
+        indexOf() trả về giá trị index ĐẦU TIÊN của mảng nếu phần tử tồn tại trong mảng
+        indexOf() trả về -1 nếu phần tử không tồn tại trong mảng
+      7. join()
+        join() dùng để tạo ra một chuỗi mới bằng cách nối tất cả các phần tử của mảng,
+        mặc định ngăn cách chúng bởi dấu phẩy hoặc một chuỗi ký tự xác định.
+        join() KHÔNG làm thay đổi mảng ban đầu
+        join() trả về chính phần tử nếu mảng chỉ có một phần tử
+        join() trả về một chuỗi rỗng "" nếu arr.length === 0
+      8. map()
+        map() giúp tạo ra một mảng mới với các phần tử là 
+        kết quả từ việc thực thi một hàm lên TỪNG PHẦN TỬ của mảng ban đầu
+        map() KHÔNG làm thay đổi mảng ban đầu
+      
+     -->
+    <input id="products" type="text" placeholder="Mời nhập sản phẩm muốn mua" />
+    <button onclick="addToCart()">Mua</button>
+    <script>
+      // let arr=[5,3,6,1,4];
+      // for(let i=0;i<arr.length;i++){
+      //       for(let j=0;j<arr.length-i;j++){
+      //           if(arr[j]>arr[i]){
+      //               let temp =arr[j+1];
+      //               arr[j+1]=arr[j];
+      //               arr[j]=temp;
+      //           }
+      //       }
+      // }
+      // console.log(arr);
+
+      // let n;
+      // do{
+      //   n=prompt("nhap so nguyen duong bat ki(n<=100)");
+      // }while(isNaN(n)||n<=0||n>100);
+      // for(let i =1;i<=n;i++){
+      //   let b =" ";
+      //   for(let j = i;j<i+n;j++){
+      //     b+=j+" ";
+      //   }
+      //   console.log(b);
+      // }
+
+      // let student=["hoa","hồng","minh","hùng"];
+      // // student.splice(3,0,"huệ");
+      // // student.splice(1,1,"hạnh");
+      // student[1]="hạnh";
+      // for(let i=0;i<student.length;i++){
+      //   console.log(student[i]);
+      // }
+      // for(const key111 in student){
+      //   console.log(student[key111]);
+      // }
+      // console.log("****************");
+      // for(const value of student){
+      //   console.log("value",value);
+      // }
+      let products = [
+        {
+          id: 1,
+          name: "iphone5",
+          // quanlity:5,
+          price: 5000,
+        },
+        {
+          id: 2,
+          name: "iphone6",
+          // quanlity:7,
+          price: 6000,
+        },
+        {
+          id: 3,
+          name: "iphone5",
+          // quanlity:8,
+          price: 8000,
+        },
+      ];
+      // let sum=0;
+      // for(let i = 0;i<cart.length;i++){
+      //   sum += cart[i].quanlity*cart[i].price
+      // };
+      // console.log(sum);
+
+      let cart = [];
+      function addToCart() {
+        let productName = document.getElementById("products").value;
+        // kiểm tra sản phẩm có trong cửa hàng ko
+        let prcart;
+        for (let i = 0; i < products.length; i++) {
+          if (productName === products[i].name) {
+            console.log("Sản phẩm có trong cửa hàng");
+            prcart = products[i];
+            isflag = true;
+            break;
+          }
+        }
+        if (!isflag) {
+          console.log(
+            "Sản phẩm không có trong cửa hàng.Vui lòng chọn sản phẩm khác"
+          );
+        } else {
+          // tiến hành đi mua hàng
+          let check = false;
+          for (let i = 0; i < cart.length; i++) {
+            if (productName === cart[i].name) {
+              check = true;
+              break;
+            }
+          }
+          if (check) {
+            // tăng số lượng
+            for (let j = 0; j < cart.length; j++) {
+              if (productName == cart[j].name) {
+                cart[j].quantily++;
+              }
+            }
+          } else {
+            // thêm vào giỏ hàng
+            prcart.quantily = 1;
+            cart.push(prcart);
+          }
+        }
+        console.log(cart);
+      }
+      /*
+          PHÂN TÍCH BÀI TOÁN
+          1.lấy giá trị ô input người dùng nhập vào.
+          2.kiểm tra xem trong cửa hàng có tồn tại sản phẩm để bán hàng
+          3.nếu có thì thêm vào giỏ hàng gồm các thuộc tính
+          {
+            id:"",
+            name:"",
+            quanlity:"",
+            price:""
+          }
+          kiểm tra xem sản phẩm thêm vào có trong giỏ hàng hay chưa nếu có rồi thì tăng 
+          số lượng còn ko có thì thêm vào bình thường!:3
+          */
+    </script>
+  </body>
+</html>

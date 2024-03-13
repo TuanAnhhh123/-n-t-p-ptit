@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Học Viên</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: rgb(246, 200, 208);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid white;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #7fea85;
+      }
+
+      #search-container {
+        margin-bottom: 20px;
+      }
+
+      #student-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      #student-table th,
+      #student-table td {
+        padding: 8px;
+        border-bottom: 1px solid white;
+      }
+
+      #student-table th {
+        background-color: white;
+      }
+
+      #student-table td:last-child {
+        text-align: center;
+      }
+
+      #student-table td:last-child button {
+        padding: 5px 10px;
+      }
+      h1{
+        color: blue;
+      }
+      tr{
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quản Lý Học Viên</h1>
+      <form id="student-form">
+        <label for="fullname">Họ và Tên:</label>
+        <input type="text" id="fullname" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
+        <label for="phone">Số điện thoại:</label>
+        <input type="tel" id="phone" pattern="[0-9]{10}" required />
+        <label for="address">Quê quán:</label>
+        <input type="text" id="address" required />
+        <label for="gender">Giới tính:</label>
+        <select id="gender">
+          <option value="Nam" selected>Nam</option>
+          <option value="Nữ">Nữ</option>
+        </select>
+        <button type="submit">Lưu</button>
+      </form>
+      <div id="search-container">
+        <label for="search">Tìm kiếm học viên:</label>
+        <input type="text" id="search" />
+        <button onclick="search">tìm kiếm</button>
+      </div>
+      <table id="student-table">
+        <thead>
+          <tr>
+            <th>Họ và Tên</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Quê quán</th>
+            <th>Giới tính</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="student-list"></tbody>
+      </table>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const studentForm = document.getElementById("student-form");
+        const studentList = document.getElementById("student-list");
+        const sortBtn = document.getElementById("sort-btn");
+        let students = [];
+
+        if (localStorage.getItem("students")) {
+          students = JSON.parse(localStorage.getItem("students"));
+          displayStudents();
+        }
+
+        function displayStudents() {
+          studentList.innerHTML = "";
+          students.forEach(function (student) {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+          <td>${student.fullname}</td>
+          <td>${student.email}</td>
+          <td>${student.phone}</td>
+          <td>${student.address}</td>
+          <td>${student.gender}</td>
+          <td><button class="delete-btn">Xoá</button>    <button class="edit-btn">Chỉnh sửa</button></td>
+        `;
+            studentList.appendChild(row);
+          });
+        }
+
+        function saveToLocalStorage() {
+          localStorage.setItem("students", JSON.stringify(students));
+        }
+
+        studentForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const fullname = document.getElementById("fullname").value;
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const address = document.getElementById("address").value;
+          const gender = document.getElementById("gender").value;
+
+          if (
+            fullname === "" ||
+            email === "" ||
+            phone === "" ||
+            address === ""
+          ) {
+            alert("Vui lòng nhập đầy đủ thông tin học viên.");
+            return;
+          }
+
+          const newStudent = {
+            fullname,
+            email,
+            phone,
+            address,
+            gender,
+          };
+
+          students.push(newStudent);
+          saveToLocalStorage();
+          displayStudents();
+          studentForm.reset();
+        });
+
+        studentList.addEventListener("click", function (e) {
+          if (e.target.classList.contains("delete-btn")) {
+            const index = e.target.parentElement.parentElement.rowIndex - 1;
+            students.splice(index, 1);
+            saveToLocalStorage();
+            displayStudents();
+          }
+
+          if (e.target.classList.contains("edit-btn")) {
+            const index = e.target.parentElement.parentElement.rowIndex - 1;
+            const student = students[index];
+            document.getElementById("fullname").value = student.fullname;
+            document.getElementById("email").value = student.email;
+            document.getElementById("phone").value = student.phone;
+            document.getElementById("address").value = student.address;
+            document.getElementById("gender").value = student.gender;
+
+            studentForm.addEventListener(
+              "submit",
+              function (e) {
+                e.preventDefault();
+                student.fullname = document.getElementById("fullname").value;
+                student.email = document.getElementById("email").value;
+                student.phone = document.getElementById("phone").value;
+                student.address = document.getElementById("address").value;
+                student.gender = document.getElementById("gender").value;
+
+                saveToLocalStorage();
+                displayStudents();
+                studentForm.reset();
+              },
+              { once: true }
+            );
+          }
+        });
+      });
+    </script>
+  </body>
+</html> 
+
+
+
+
+
+
+
